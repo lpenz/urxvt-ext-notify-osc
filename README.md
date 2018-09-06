@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/lpenz/urxvt-ext-notify-osc.png?branch=master)](https://travis-ci.org/lpenz/urxvt-ext-notify-osc) 
 
 urxvt-ext-notify-osc
 ====================
