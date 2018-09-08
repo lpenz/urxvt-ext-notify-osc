@@ -1,0 +1,6 @@
+/debian/.debhelper/
+/debian/debhelper-build-stamp
+/debian/files
+/debian/urxvt-ext-notify-osc.substvars
+/debian/urxvt-ext-notify-osc/
+

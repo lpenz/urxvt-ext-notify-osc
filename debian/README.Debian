@@ -1,0 +1,10 @@
+urxvt-ext-notify-osc for Debian
+------------------------------
+
+This package makes the notify-osc available for use. You need to enable it
+in ~/.Xresources by adding the following line:
+URxvt.perl-ext-common: ...,notify-osc
+And running:
+xrdb -merge ~/.Xresources
+
+ -- Leandro Lisboa Penz <lpenz@lpenz.org>  Sat, 08 Sep 2018 13:38:52 +0100
