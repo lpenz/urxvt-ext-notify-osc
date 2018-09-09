@@ -21,15 +21,17 @@ get its urgency hint set, which makes the window manager call your
 attention to it.
 
 This works well even when a remote program in an ssh session prints
-the string. There is no depency on X forwarding.
+the string. There is no dependency on X forwarding.
 
 
 # Installation
 
-## Requirements
+## Manual installation
+
+### Requirements
 
 - *notify-send* is used to create the notifications. It lives
-  in the *notify-bin* Debian package.
+  in the *libnotify-bin* Debian package.
 
 - *xseturgent* is used to set the urgent hint. You can find in source
   form in [github](https://github.com/lpenz/xseturgent), or as a
@@ -40,9 +42,19 @@ the string. There is no depency on X forwarding.
 If one of these utilities is not present, the corresponding feature
 doesn't work.
 
-## Manual installation
+
+### Installing
 
 Copy the *notify-osc* file to `~/.urxvt/ext`.
+
+
+## Debian package
+
+You can find a debian package
+in [my packagecloud repository](https://packagecloud.io/lpenz/lpenz).
+
+This options gets the dependencies sorted automatically.
+
 
 ## Enabling
 
@@ -57,3 +69,4 @@ Reload the resources after editing that file by running:
 ```shell
 xrdb -merge ~/.Xresources
 ```
+
