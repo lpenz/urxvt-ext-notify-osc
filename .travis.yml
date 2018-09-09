@@ -19,3 +19,4 @@ deploy:
   package_glob: '*.deb'
   on:
     branch: debian-debian
+    tags: true
