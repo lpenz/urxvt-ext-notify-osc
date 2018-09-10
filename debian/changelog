@@ -1,3 +1,10 @@
+urxvt-ext-notify-osc (0.2-1) UNRELEASED; urgency=low
+
+  * Fix xseturgent arguments
+  * Install manpage
+
+ -- Leandro Lisboa Penz <lpenz@lpenz.org>  Mon, 10 Sep 2018 21:30:06 +0100
+
 urxvt-ext-notify-osc (0.1-1) UNRELEASED; urgency=low
 
   * Initial release.

@@ -2,7 +2,7 @@ Source: urxvt-ext-notify-osc
 Section: x11
 Priority: optional
 Maintainer: Leandro Lisboa Penz <lpenz@lpenz.org>
-Build-Depends: debhelper (>= 10)
+Build-Depends: debhelper (>= 10), cmake (>= 3.0)
 Standards-Version: 4.1.3
 Homepage: http://github.com/lpenz/urxvt-ext-notify-osc
 Vcs-Git: git://github.com/lpenz/urxvt-ext-notify-osc.git
