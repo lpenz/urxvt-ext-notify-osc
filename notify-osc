@@ -57,7 +57,7 @@ sub on_osc_seq_perl {
    my $seturgent = which 'xseturgent';
    if ($seturgent) {
       my $windowid = $self->parent;
-      $self->exec_async (($seturgent, $windowid));
+      $self->exec_async (($seturgent, '-i', $windowid));
    }
 
    return 1;
