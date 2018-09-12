@@ -3,8 +3,6 @@
 urxvt-ext-notify-osc
 ====================
 
-# About
-
 urxvt-ext-notify-osc is a urxvt OSC extension for desktop
 notifications.
 
@@ -24,11 +22,11 @@ This works well even when a remote program in an ssh session prints
 the string. There is no dependency on X forwarding.
 
 
-# Installation
+## Installation
 
-## Manual installation
+### Manual installation
 
-### Requirements
+#### Requirements
 
 - *notify-send* is used to create the notifications. It lives
   in the *libnotify-bin* Debian package.
@@ -43,12 +41,12 @@ If one of these utilities is not present, the corresponding feature
 doesn't work.
 
 
-### Installing
+#### Installing
 
 Copy the *notify-osc* file to `~/.urxvt/ext`.
 
 
-## Debian package
+### Debian package
 
 You can find a debian package
 in [my packagecloud repository](https://packagecloud.io/lpenz/lpenz).
@@ -56,7 +54,7 @@ in [my packagecloud repository](https://packagecloud.io/lpenz/lpenz).
 This options gets the dependencies sorted automatically.
 
 
-## Enabling
+### Enabling
 
 Add *notify-osc* to the list of enabled urxvt extensions in `~/.Xresources`:
 
