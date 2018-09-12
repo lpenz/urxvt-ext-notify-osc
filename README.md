@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/lpenz/urxvt-ext-notify-osc.png?branch=master)](https://travis-ci.com/lpenz/urxvt-ext-notify-osc) 
+[![packagecloud](https://img.shields.io/badge/deb-packagecloud.io-844fec.svg)](https://packagecloud.io/lpenz/lpenz)
 
 urxvt-ext-notify-osc
 ====================
