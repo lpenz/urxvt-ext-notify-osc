@@ -1,20 +1,25 @@
 ---
 language: generic
-install: docker pull debian:stretch
+addons: { apt: { packages: [ qemu-user-static ] } }
+env:
+  - OS=debian   DIST=buster ARCH=amd64
+  - OS=raspbian DIST=buster ARCH=armhf
+install: docker pull lpenz/${OS}-${DIST}-${ARCH}
 script:
-  - docker run -d --name debian -v "$PWD/..":/home debian:stretch sleep 9999999999
-  - docker exec -t debian /bin/bash -c "apt-get update && apt-get install -y --no-install-recommends git-buildpackage fakeroot build-essential debhelper cmake"
-  - docker exec -t debian /bin/bash -c "cd /home/urxvt-ext-notify-osc && gbp buildpackage --git-ignore-branch -us -uc"
+  - docker run -d --name debian -v "$PWD/..:$PWD/.." "lpenz/${OS}-${DIST}-${ARCH}" sleep 9999999999
+  - docker exec -t debian /bin/bash -c "apt-get update && apt-get install -y --no-install-recommends devscripts equivs git-buildpackage"
+  - docker exec -t debian /bin/bash -c "mk-build-deps -i -r --tool='apt-get -o Debug::pkgProblemResolver=yes --no-install-recommends --yes' $PWD/debian/control"
+  - docker exec -t debian /bin/bash -c "cd $PWD && gbp buildpackage --git-ignore-branch -us -uc"
   - docker rm -f debian
   - sudo chown -R "$USER:$USER" ../
   - ls -l ..
 deploy:
   provider: packagecloud
-  repository: lpenz
   username: lpenz
+  repository: $OS
   token:
     secure: BiyS6ixN43Q9us8h1hSOm6ZtuzW2ExV04MQEKF0f/7ypx00g9xhVb08Ne+hIvFbzCqTRPJH/uM3cv3UcIsRzMuIyjGrKLECFERYy0BJmJo3As+S1mqB4DaEcdp0l4/3mnLdlYqcdgBle6eHFqXmRMvXlqKdUb+NJYcaSsvX8RxFYxmENiMYFtrRdMhr1laaMEa6XQpsT+CK4LVdf0roDyJnnWuCcCE9YMxJGvetHsd9f5Zv2V40Gujw3x2Q2IgEvXGKC+jDv/WfsXtM9FTbowQltj8qOvutrci785rIiOsAnkoSC1QcogRkmWL8meLZAS9gIDtHzf8r94pcABk91JlhuIWW8otQL4G6++Mq8NxAamDpJaH5y0/5zuQ0Z8zv5gzUythFbytWRYUdRQLvnjWKosAGGNlQIcegRlkcPFAZl49oWKVaFLzA2htjEXSuwufJ04/bWVbokD+TQmHcpFZbBLqI91rNHyvgDyCVJwH97AY8YLz1o0bWa35EfQOFscCAlpoHg1aV6Z+6UcggOFRQhuPGsEcF/9fjqh8+f5Lx6ZvTBMyvOS5575RQOZ2x986PVsvZ4Anv+AphFk974c/9tiZUfc8No2DDmNNEUrecgodZq/FeMQV+BMO2i56/uYl2Z8XHFI1vOgUDHN7bn0LoH4Yw8pKo3l/rs0aj9hbI=
-  dist: debian/stretch
+  dist: $OS/$DIST
   local-dir: '..'
   package_glob: '*.deb'
   on:

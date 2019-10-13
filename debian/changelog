@@ -1,3 +1,9 @@
+urxvt-ext-notify-osc (0.2-2) UNRELEASED; urgency=low
+
+  * Update to Debian Buster
+
+ -- Leandro Lisboa Penz <lpenz@lpenz.org>  Sun, 13 Oct 2019 17:45:35 +0100
+
 urxvt-ext-notify-osc (0.2-1) UNRELEASED; urgency=low
 
   * Fix xseturgent arguments
