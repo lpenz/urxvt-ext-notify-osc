@@ -16,12 +16,12 @@ script:
 deploy:
   provider: packagecloud
   username: lpenz
-  repository: $OS
+  repository: "$OS"
   token:
-    secure: BiyS6ixN43Q9us8h1hSOm6ZtuzW2ExV04MQEKF0f/7ypx00g9xhVb08Ne+hIvFbzCqTRPJH/uM3cv3UcIsRzMuIyjGrKLECFERYy0BJmJo3As+S1mqB4DaEcdp0l4/3mnLdlYqcdgBle6eHFqXmRMvXlqKdUb+NJYcaSsvX8RxFYxmENiMYFtrRdMhr1laaMEa6XQpsT+CK4LVdf0roDyJnnWuCcCE9YMxJGvetHsd9f5Zv2V40Gujw3x2Q2IgEvXGKC+jDv/WfsXtM9FTbowQltj8qOvutrci785rIiOsAnkoSC1QcogRkmWL8meLZAS9gIDtHzf8r94pcABk91JlhuIWW8otQL4G6++Mq8NxAamDpJaH5y0/5zuQ0Z8zv5gzUythFbytWRYUdRQLvnjWKosAGGNlQIcegRlkcPFAZl49oWKVaFLzA2htjEXSuwufJ04/bWVbokD+TQmHcpFZbBLqI91rNHyvgDyCVJwH97AY8YLz1o0bWa35EfQOFscCAlpoHg1aV6Z+6UcggOFRQhuPGsEcF/9fjqh8+f5Lx6ZvTBMyvOS5575RQOZ2x986PVsvZ4Anv+AphFk974c/9tiZUfc8No2DDmNNEUrecgodZq/FeMQV+BMO2i56/uYl2Z8XHFI1vOgUDHN7bn0LoH4Yw8pKo3l/rs0aj9hbI=
-  dist: $OS/$DIST
-  local-dir: '..'
-  package_glob: '*.deb'
+    secure: aetem2wqvKIptfa8q4xZZQXFMe8QwhrfKAEUqKivAV/C6TOrwibTKNa4n+3kQ/4M32TLOFZomxThP65GCd+S5IdHEBLKi3mQhYDaGhrc5PEzVBZdr3iALeYD5VZwf89nqz/mEbLBu1qp9Y3fn0T7XmN2zUikmCEf5+J2TeQJrVAk0RnlzZVYpuKrUxOueZhkqxUFr2Bo4wZEjIo5mBHuDhIRdogcMapyqHG5NwbfBJ3bJEYFHCoD2xAbIG3jFNfx7fTPhzIwjZkpPfn1pZgsFt4qOsg7oJDErEpfbqJTs8UGNwpRLCgNDDAKJsmf8qWz7pVNaYMDnGWs5UDwJZGT6W3Qpyis5jBH3x1M12HeG/l7wDY+/KhCsiwXncyMY8LSG84vfbJnXv9iDLFTptZV0465aCJMyeo+ctf8+Qz4UGma3ce5xu36a+Uk4dJZqGkt3Vjjo9Kv1GiOvLApQS18XCnRuhP1BAiP+k7jkQjPRcQwRh8QcjI+uZeY32f2E3VZuMUjEWBaLglj9hj79pJnV7mqRSk96V3Ze8x8asdk3YBdoaRiYjJs+3Xljk6c7eHpoxaFXT3NKSj31kr2cLKejBUceMoVn88/NEHCgcazAMFZpNZmY1NupXZQ4a2DQpp7kStiTfJ9wVY5HGsU3eqBYKZJrShEGWg9L+td8OrHO6E=
+  dist: "$OS/$DIST"
+  local-dir: ".."
+  package_glob: "*.deb"
   on:
     branch: debian-debian
     tags: true
