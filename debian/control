@@ -10,7 +10,7 @@ Vcs-Browser: http://github.com/lpenz/urxvt-ext-notify-osc
 
 Package: urxvt-ext-notify-osc
 Architecture: any
-Depends: rxvt-unicode, libnotify-bin, ${misc:Depends}
+Depends: rxvt-unicode, libnotify-bin, libfile-which-perl, ${misc:Depends}
 Recommends: xseturgent
 Description: urxvt OSC extension for desktop notifications
  urxvt-ext-notify-osc is a urxvt OSC extension for desktop
