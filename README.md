@@ -1,4 +1,5 @@
 [![CI](https://github.com/lpenz/urxvt-ext-notify-osc/actions/workflows/ci.yml/badge.svg)](https://github.com/lpenz/urxvt-ext-notify-osc/actions/workflows/ci.yml)
+[![packagecloud](https://img.shields.io/badge/deb-packagecloud.io-844fec.svg)](https://packagecloud.io/app/lpenz/debian/search?q=urxvt-ext-notify-osc)
 
 urxvt-ext-notify-osc
 ====================
