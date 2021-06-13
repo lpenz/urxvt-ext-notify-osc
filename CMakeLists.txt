@@ -8,7 +8,8 @@ project(urxvt-ext-notify-osc)
 
 include(GNUInstallDirs)
 
-# Manual:
+# Manual
+
 add_custom_command(
     OUTPUT urxvt-ext-notify-osc.1.gz
     DEPENDS notify-osc
@@ -19,7 +20,8 @@ add_custom_command(
     )
 add_custom_target(manual ALL DEPENDS urxvt-ext-notify-osc.1.gz)
 
-# Install:
+# Install
+
 install(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/urxvt-ext-notify-osc.1.gz
     DESTINATION ${CMAKE_INSTALL_MANDIR}/man1/
@@ -27,5 +29,9 @@ install(
 install(
     PROGRAMS notify-osc
     DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/${CMAKE_LIBRARY_ARCHITECTURE}/urxvt/perl"
+    )
+install (
+    FILES README.md LICENSE AUTHORS
+    DESTINATION ${CMAKE_INSTALL_DOCDIR}/
     )
 
