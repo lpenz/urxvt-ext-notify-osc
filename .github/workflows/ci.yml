@@ -2,6 +2,11 @@
 name: CI
 on: [ push, pull_request ]
 jobs:
+  omnilint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: docker://lpenz/omnilint:v0.2
   tests:
     strategy:
         matrix:
@@ -13,11 +18,6 @@ jobs:
       - uses: docker://lpenz/ghaction-cmake:v0.12
         with:
           preset: ${{ matrix.preset }}
-  omnilint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: docker://lpenz/omnilint:v0.2
   packagecloud:
     needs: [ omnilint, tests ]
     runs-on: ubuntu-latest
