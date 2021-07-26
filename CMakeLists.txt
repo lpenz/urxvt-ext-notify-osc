@@ -28,7 +28,7 @@ install(
     )
 install(
     PROGRAMS notify-osc
-    DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/${CMAKE_LIBRARY_ARCHITECTURE}/urxvt/perl"
+    DESTINATION "${CMAKE_INSTALL_LIBDIR}/${CMAKE_LIBRARY_ARCHITECTURE}/urxvt/perl"
     )
 install (
     FILES README.md LICENSE AUTHORS
@@ -43,6 +43,7 @@ set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "urxvt OSC extension for desktop notificat
 set(CPACK_DEBIAN_PACKAGE_SECTION utils)
 set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
 execute_process(COMMAND git describe --tags
+                WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
                 OUTPUT_VARIABLE GIT_DESCRIBE)
 string(REGEX REPLACE "-g[0-9a-f]+\n$" "" CPACK_PACKAGE_VERSION "${GIT_DESCRIBE}")
 set(CPACK_PACKAGE_FILE_NAME "urxvt-ext-notify-osc-${CPACK_PACKAGE_VERSION}")
