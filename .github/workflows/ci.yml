@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: docker://lpenz/ghaction-cmake:v0.12
+      - uses: docker://lpenz/ghaction-cmake:0.15
         with:
           preset: ${{ matrix.preset }}
   packagecloud:
@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - uses: docker://lpenz/ghaction-cmake:v0.12
+      - uses: docker://lpenz/ghaction-cmake:0.15
         with:
           preset: cpack
       - run: |
@@ -34,7 +34,7 @@ jobs:
       - uses: docker://lpenz/ghaction-packagecloud:v0.3
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         with:
-          repository: debian/debian/buster
+          repository: debian/debian/bullseye
         env:
           PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
 
