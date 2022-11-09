@@ -1,12 +1,12 @@
 ---
 name: CI
-on: [ push, pull_request ]
+on: [ workflow_dispatch, push, pull_request ]
 jobs:
   omnilint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: docker://lpenz/omnilint:v0.2
+      - uses: actions/checkout@v3.1.0
+      - uses: docker://lpenz/omnilint:0.5
   tests:
     strategy:
         matrix:
@@ -14,24 +14,24 @@ jobs:
             - install
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: docker://lpenz/ghaction-cmake:0.15
+      - uses: actions/checkout@v3.1.0
+      - uses: docker://lpenz/ghaction-cmake:0.21.0
         with:
           preset: ${{ matrix.preset }}
   packagecloud:
     needs: [ omnilint, tests ]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3.1.0
         with:
           fetch-depth: 0
-      - uses: docker://lpenz/ghaction-cmake:0.15
+      - uses: docker://lpenz/ghaction-cmake:0.21.0
         with:
           preset: cpack
       - run: |
           dpkg --info *.deb
           dpkg --contents *.deb
-      - uses: docker://lpenz/ghaction-packagecloud:v0.3
+      - uses: docker://lpenz/ghaction-packagecloud:0.4
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         with:
           repository: debian/debian/bullseye
