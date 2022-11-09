@@ -18,23 +18,46 @@ jobs:
       - uses: docker://lpenz/ghaction-cmake:0.21.0
         with:
           preset: ${{ matrix.preset }}
-  packagecloud:
+  publish-packagecloud:
     needs: [ omnilint, tests ]
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        variant:
+          - image: amd64
+            distro: debian
+            version: bullseye
+          - image: ubuntu-focal-amd64
+            distro: ubuntu
+            version: focal
+          - image: raspbian-bullseye-armhf
+            distro: raspbian
+            version: bullseye
     steps:
       - uses: actions/checkout@v3.1.0
         with:
           fetch-depth: 0
-      - uses: docker://lpenz/ghaction-cmake:0.21.0
+      - uses: docker/setup-qemu-action@v2.1.0
+      - uses: docker://lpenz/ghaction-cmake:0.21.0-amd64
+        if: matrix.variant.image == 'amd64'
+        with:
+          preset: cpack
+      - uses: docker://lpenz/ghaction-cmake:0.21.0-ubuntu-focal-amd64
+        if: matrix.variant.image == 'ubuntu-focal-amd64'
+        with:
+          preset: cpack
+      - uses: docker://lpenz/ghaction-cmake:0.21.0-raspbian-bullseye-armhf
+        if: matrix.variant.image == 'raspbian-bullseye-armhf'
         with:
           preset: cpack
       - run: |
-          dpkg --info *.deb
-          dpkg --contents *.deb
+          for f in *.deb; do ls -l "$f"; dpkg --info "$f"; done
+      - id: version
+        uses: docker://lpenz/ghaction-version-gen:0.11.0
       - uses: docker://lpenz/ghaction-packagecloud:0.4
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: steps.version.outputs.version_commit != ''
         with:
-          repository: debian/debian/bullseye
+          repository: ${{ matrix.variant.distro }}/${{ matrix.variant.distro }}/${{ matrix.variant.version }}
         env:
           PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
 
