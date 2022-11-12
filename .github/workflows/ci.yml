@@ -11,10 +11,13 @@ jobs:
     strategy:
         matrix:
           preset:
+            - cpack
             - install
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3.1.0
+        with:
+          fetch-depth: 0
       - uses: docker://lpenz/ghaction-cmake:0.21.0
         with:
           preset: ${{ matrix.preset }}
