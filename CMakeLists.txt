@@ -46,7 +46,8 @@ set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
 execute_process(COMMAND git describe --tags
                 WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
                 OUTPUT_VARIABLE GIT_DESCRIBE)
-string(REGEX REPLACE "-g[0-9a-f]+\n$" "" CPACK_PACKAGE_VERSION "${GIT_DESCRIBE}")
+string(REGEX REPLACE "^v([0-9.-]+)(-g[0-9a-f]+)?\n$" "\\1"
+  CPACK_PACKAGE_VERSION "${GIT_DESCRIBE}")
 set(CPACK_PACKAGE_FILE_NAME "urxvt-ext-notify-osc-${CPACK_PACKAGE_VERSION}")
 include(CPack)
 
