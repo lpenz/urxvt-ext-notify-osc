@@ -5,7 +5,7 @@ jobs:
   omnilint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v6.0.0
       - uses: docker://lpenz/omnilint:0.5.2
   tests:
     strategy:
@@ -14,7 +14,7 @@ jobs:
             - install
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v6.0.0
       - uses: docker://lpenz/ghaction-cmake:0.23.0
         with:
           preset: ${{ matrix.preset }}
@@ -37,10 +37,10 @@ jobs:
             distro: raspbian
             version: bookworm
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v6.0.0
         with:
           fetch-depth: 0
-      - uses: docker/setup-qemu-action@v3.6.0
+      - uses: docker/setup-qemu-action@v3.7.0
       - uses: docker://lpenz/ghaction-cmake:0.23.0
         if: matrix.variant.image == 'debian-bookworm-amd64'
         with:
@@ -60,8 +60,8 @@ jobs:
       - run: |
           for f in *.deb; do ls -l "$f"; dpkg --info "$f"; done
       - id: version
-        uses: docker://lpenz/ghaction-version-gen:0.14.1
-      - uses: docker://lpenz/ghaction-packagecloud:0.4
+        uses: docker://lpenz/ghaction-version-gen:0.18.0
+      - uses: docker://lpenz/ghaction-packagecloud:0.5
         if: steps.version.outputs.version_commit != ''
         with:
           repository: ${{ matrix.variant.distro }}/${{ matrix.variant.distro }}/${{ matrix.variant.version }}
