@@ -32,12 +32,6 @@ the string. There is no dependency on X forwarding.
 - *notify-send* is used to create the notifications. It lives
   in the *libnotify-bin* Debian package.
 
-- *xseturgent* is used to set the urgent hint. You can find in source
-  form in [github](https://github.com/lpenz/xseturgent), or as a
-  Debian package/repository
-  in [packagecloud](https://packagecloud.io/lpenz/lpenz).
-  (disclaimer: I'm the author)
-
 If one of these utilities is not present, the corresponding feature
 doesn't work.
 

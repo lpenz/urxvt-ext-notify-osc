@@ -23,8 +23,6 @@ C<printf '\e]777;notify;summary of the notification;the text body\a'>
 
 - I<notify-send> is used to create the notifications. It can be found in the I<notify-bin> Debian package.
 
-- I<xseturgent> is used to set the urgent hint. You can find in source form at L<https://github.com/lpenz/xseturgent>, or as a Debian package/repository at L<https://packagecloud.io/lpenz/lpenz>.
-
 =head1 AUTHOR
 
 Written by Leandro Penz
@@ -54,11 +52,7 @@ sub on_osc_seq_perl {
    my @exec = ("notify-send", $summary, $body);
    $self->exec_async (@exec);
 
-   my $seturgent = which 'xseturgent';
-   if ($seturgent) {
-      my $windowid = $self->parent;
-      $self->exec_async (($seturgent, '-i', $windowid));
-   }
+   $self->set_urgency(1);
 
    return 1;
 }
