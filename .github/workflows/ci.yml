@@ -1,6 +1,6 @@
 ---
 name: CI
-on: [ workflow_dispatch, push, pull_request ]
+on: [workflow_dispatch, push, pull_request]  # yamllint disable-line rule:truthy
 jobs:
   omnilint:
     runs-on: ubuntu-latest
@@ -9,9 +9,8 @@ jobs:
       - uses: docker://lpenz/omnilint:0.5.2
   tests:
     strategy:
-        matrix:
-          preset:
-            - install
+      matrix:
+        preset: [install]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6.0.0
@@ -19,7 +18,7 @@ jobs:
         with:
           preset: ${{ matrix.preset }}
   publish-packagecloud:
-    needs: [ omnilint, tests ]
+    needs: [omnilint, tests]
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -64,6 +63,7 @@ jobs:
       - uses: docker://lpenz/ghaction-packagecloud:0.5
         if: steps.version.outputs.version_commit != ''
         with:
-          repository: ${{ matrix.variant.distro }}/${{ matrix.variant.distro }}/${{ matrix.variant.version }}
+          repository: ${{ matrix.variant.distro }}/${{ matrix.variant.distro }}/${{
+            matrix.variant.version }}
         env:
           PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
