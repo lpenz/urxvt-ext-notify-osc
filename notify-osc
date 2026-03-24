@@ -44,11 +44,33 @@ use strict;
 sub on_osc_seq_perl {
     my ($self, $osc, $resp) = @_;
 
-    return unless $osc =~ s/^notify;(.*)//x;
+    # Match and capture payload after "notify;"
+    return unless $osc =~ /^notify;(.*)/;
 
-    (my $summary, my $body) = ($1 =~ /^([^;]+);?(.*)/x);
+    my $payload = $1 // '';
 
-    my @exec = ("notify-send", $summary, $body);
+    # Split into summary and body (only first semicolon matters)
+    my ($summary, $body) = split /(?<!\\);/, $payload, 2;
+    s/\\;/;/g for ($summary, $body);
+
+    # Ensure defined values
+    $summary //= '';
+    $body    //= '';
+
+    # Trim whitespace and control chars
+    for ($summary, $body) {
+        next unless defined;
+        s/[\x00-\x1F\x7F]//g;
+        s/^\s+//;
+        s/\s+\z//;
+    }
+
+    # Don't send empty notifications
+    return unless length $summary;
+
+    my @exec = ("notify-send", $summary);
+    push @exec, $body if length $body;
+
     $self->exec_async (@exec);
 
     $self->set_urgency(1);
