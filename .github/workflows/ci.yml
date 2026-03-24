@@ -23,37 +23,23 @@ jobs:
     strategy:
       matrix:
         variant:
-          - image: debian-bookworm-amd64
-            distro: debian
-            version: bookworm
           - image: debian-trixie-amd64
             distro: debian
             version: trixie
           - image: ubuntu-noble-amd64
             distro: ubuntu
             version: noble
-          - image: raspbian-bookworm-armhf
-            distro: raspbian
-            version: bookworm
     steps:
       - uses: actions/checkout@v6.0.0
         with:
           fetch-depth: 0
       - uses: docker/setup-qemu-action@v3.7.0
       - uses: docker://lpenz/ghaction-cmake:0.23.0
-        if: matrix.variant.image == 'debian-bookworm-amd64'
-        with:
-          preset: cpack
-      - uses: docker://lpenz/ghaction-cmake:0.23.0
         if: matrix.variant.image == 'debian-trixie-amd64'
         with:
           preset: cpack
       - uses: docker://lpenz/ghaction-cmake:0.23.0
         if: matrix.variant.image == 'ubuntu-noble-amd64'
-        with:
-          preset: cpack
-      - uses: docker://lpenz/ghaction-cmake:0.23.0
-        if: matrix.variant.image == 'raspbian-bookworm-armhf'
         with:
           preset: cpack
       - run: |
