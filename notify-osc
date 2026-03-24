@@ -41,11 +41,20 @@ Copyright (C) 2018 Leandro Lisboa Penz <lpenz@lpenz.org>
 use warnings;
 use strict;
 
+
+sub dbg {
+    my ($debug, @msg) = @_;
+    return unless $debug;
+    warn "[notify-osc] @msg\n";
+}
+
 sub on_osc_seq_perl {
     my ($self, $osc, $resp) = @_;
 
     # Match and capture payload after "notify;"
     return unless $osc =~ /^notify;(.*)/;
+
+    my $debug = $self->resource("notify.debug") // 0;
 
     my $payload = $1 // '';
 
@@ -70,6 +79,8 @@ sub on_osc_seq_perl {
 
     my @exec = ("notify-send", $summary);
     push @exec, $body if length $body;
+
+    dbg($debug, "exec: @exec");
 
     $self->exec_async (@exec);
 
