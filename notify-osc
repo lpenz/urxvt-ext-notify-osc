@@ -6,22 +6,68 @@
 
 =head1 NAME
 
-notify-osc - implement OSC for notifications
+notify-osc - implement OSC notifications for urxvt
 
 =head1 DESCRIPTION
 
-This extension implements an OSC command that displays a desktop
-notification and sets the urgent hint of the urxvt window.
+This extension implements an OSC sequence handler for urxvt that
+triggers desktop notifications using C<notify-send> and sets the
+urgent hint of the terminal window.
 
-=head1 Displaying a notification
+=head1 OSC FORMAT
 
-To test the OSC code in a bash shell inside urxvt:
+The OSC sequence must be:
 
-C<printf '\e]777;notify;summary of the notification;the text body\a'>
+  notify;summary;body
 
-=head1 Requirements
+=head2 Example
 
-- I<notify-send> is used to create the notifications. It can be found in the I<notify-bin> Debian package.
+  printf '\e]777;notify;Build finished;All tests passed\a'
+
+The first field is the notification title (summary).
+The second field is the notification body.
+
+If the body is omitted, an empty string is used.
+
+Example with empty body:
+
+  printf '\e]777;notify;Hello world;\a'
+
+=head1 Escaping
+
+Semicolons inside fields must be escaped using C<\;>:
+
+  notify;summary;body with \; semicolon
+
+=head1 BEHAVIOR
+
+- Runs asynchronously (does not block urxvt)
+- Strips control characters from input
+- Trims leading/trailing whitespace
+- Ignores empty summaries
+- Sets the terminal urgent hint
+- Uses C<notify-send> for desktop notifications
+
+=head1 Debugging
+
+Debug output can be enabled via urxvt resource:
+
+  URxvt.notify.debug: 1
+
+When enabled, parsing and execution details are printed to STDERR.
+
+=head1 DISPLAYING A NOTIFICATION
+
+To test the OSC handler inside urxvt:
+
+  printf '\e]777;notify;Test notification;Hello world\a'
+
+=head1 REQUIREMENTS
+
+C<notify-send> is used to create desktop notifications.
+
+It is typically provided by the C<libnotify-bin> package
+on Debian-based systems.
 
 =head1 AUTHOR
 
